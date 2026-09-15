@@ -1,0 +1,4 @@
+resume_id,resume_text,resume_skills,experience_years,education_level,projects,certifications,job_role,required_skills,job_experience_required,job_description
+R001,"我有 4 年后端开发经验。使用 Python 与 FastAPI 开发过候选人筛选服务，并接入大模型 API。负责 REST API 设计、SQL 数据清洗和上线后的人工复核流程。",Python|FastAPI|SQL|LLM API,4,本科,AI 简历筛选应用,无,AI 应用工程师,Python|FastAPI|REST API,3,"具有 3 年以上后端开发经验。要求熟悉 Python 和 FastAPI，具备 REST API 开发能力。有大模型 API 接入或 AI 应用落地经验者优先。"
+R002,"我有 2 年后端开发经验。使用 Django 维护内容管理系统，参与接口联调与故障排查。",Django|MySQL,2,本科,内容管理系统,无,AI 应用工程师,Python|FastAPI|REST API,3,"具有 3 年以上后端开发经验。要求熟悉 Python 和 FastAPI，具备 REST API 开发能力。有大模型 API 接入或 AI 应用落地经验者优先。"
+R003,"环境工程背景，完成过污染源数据分析与可视化项目。熟悉 SQL 和 pandas，能把业务问题拆解为可验证的数据流程。",SQL|pandas|数据分析,1,硕士,污染源数据分析,环境影响评价工程师,AI 应用工程师,Python|FastAPI|REST API,3,"具有 3 年以上后端开发经验。要求熟悉 Python 和 FastAPI，具备 REST API 开发能力。有大模型 API 接入或 AI 应用落地经验者优先。"

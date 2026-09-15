@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231d2b2e'/%3E%3Cpath d='M18 19h28v26H18z' fill='none' stroke='%2367d6c1' stroke-width='4'/%3E%3Cpath d='M24 27h16M24 35h12' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+  <title>AI 简历初筛系统 - 候选人详情</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <h2>AI 简历初筛</h2>
+    <div class="portfolio-note"><strong>作品集演示</strong><span>默认离线运行，结论须由 HR 复核</span></div>
+    <a href="index.html">创建任务</a>
+    <a href="criteria.html">标准确认</a>
+    <a href="results.html">筛选结果</a>
+    <a href="detail.html" class="active">候选人详情</a>
+  </div>
+  <div class="main">
+    <h1 class="page-title">候选人详情</h1>
+
+    <div id="loadingData" style="text-align:center;padding:60px;color:var(--muted)">正在从后端读取候选人详情...</div>
+
+    <div id="noData" class="hidden" style="text-align:center;padding:60px;color:var(--muted)">
+      <p id="noDataMessage" style="font-size:18px;margin-bottom:16px">未找到候选人数据</p>
+      <button class="btn btn-primary" id="backToResultsFromEmptyBtn">返回结果列表</button>
+    </div>
+
+    <div id="candidateContent" class="hidden">
+      <!-- 基本信息 -->
+      <div class="card">
+        <div class="card-title">基本信息</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+          <div>
+            <label>候选人 ID</label>
+            <div id="candId" style="font-size:18px;font-weight:700;color:var(--primary)"></div>
+          </div>
+          <div>
+            <label>AI 建议</label>
+            <div id="candAiLayer"></div>
+          </div>
+          <div>
+            <label>HR 最终结果</label>
+            <div id="candLayer"></div>
+          </div>
+          <div>
+            <label>语义匹配分</label>
+            <div id="candMatchScore"></div>
+          </div>
+          <div>
+            <label>证据置信度</label>
+            <div id="candEvidenceConfidence"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI 逐项分析 -->
+      <div class="card">
+        <div class="card-title">AI 逐项分析</div>
+        <table>
+          <thead>
+            <tr>
+              <th>筛选条件</th>
+              <th style="width:100px">匹配状态</th>
+              <th>语义关系 / 原文证据</th>
+              <th style="width:90px">证据类型</th>
+              <th style="width:110px">匹配分</th>
+              <th style="width:110px">证据置信度</th>
+            </tr>
+          </thead>
+          <tbody id="analysisBody"></tbody>
+        </table>
+      </div>
+
+      <!-- 不确定点与风险 -->
+      <div class="card" id="uncertaintyCard">
+        <div class="card-title">不确定点与风险</div>
+        <div id="uncertainties"></div>
+        <div id="risks" style="margin-top:12px"></div>
+      </div>
+
+      <!-- HR 复核记录 -->
+      <div class="card hidden" id="reviewRecordCard">
+        <div class="card-title">HR 复核记录</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div>
+            <label>最终结果</label>
+            <div id="reviewFinalLayer"></div>
+          </div>
+          <div>
+            <label>提交时间</label>
+            <div id="reviewTimestamp" style="font-size:14px;color:var(--muted)"></div>
+          </div>
+          <div style="grid-column:1/-1">
+            <label>具体理由</label>
+            <div id="reviewReasonDisplay" class="evidence-block" style="margin-top:0;white-space:pre-wrap"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 证据账本：展示数据、AI 与人工决定的责任链 -->
+      <section class="card audit-ledger" id="auditCard" aria-labelledby="auditTitle">
+        <div class="audit-ledger-heading">
+          <div>
+            <div class="audit-kicker">证据账本</div>
+            <h2 class="card-title" id="auditTitle">这条建议是怎样形成的</h2>
+          </div>
+          <span class="audit-seal">原始记录不覆盖</span>
+        </div>
+        <p class="audit-intro">按发生顺序展示候选人数据进入系统、AI 建议生成以及 HR 最终复核。每一步都保留时间和来源。</p>
+        <div id="auditStatus" class="audit-status" role="status">正在读取审计记录...</div>
+        <ol id="auditTimeline" class="audit-timeline hidden"></ol>
+      </section>
+
+      <!-- 简历原文 -->
+      <div class="card">
+        <div class="card-title">简历原文</div>
+        <div class="evidence-block" id="resumeText"></div>
+      </div>
+
+      <!-- HR 复核 -->
+      <div class="card" style="border:2px solid var(--primary)">
+        <div class="card-title">HR 复核</div>
+        <div class="form-group">
+          <label>复核决定</label>
+          <div class="radio-group">
+            <label><input type="radio" name="decision" value="adopt" checked> 采纳 AI 建议</label>
+            <label><input type="radio" name="decision" value="override"> 推翻 AI 建议</label>
+          </div>
+        </div>
+        <div class="form-group hidden" id="newLayerGroup">
+          <label>推翻后分层</label>
+          <select id="newLayer" style="border:1px solid var(--line);border-radius:4px;padding:8px 12px;font-size:14px">
+            <option value="recommend">推荐</option>
+            <option value="pending">待定</option>
+            <option value="reject">不推荐</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label id="reviewReasonLabel">复核理由（选填）</label>
+          <textarea id="reviewReason" rows="3" placeholder="可填写采纳 AI 建议的原因"></textarea>
+        </div>
+        <div style="text-align:right">
+          <button class="btn btn-outline" id="backToResultsBtn">返回列表</button>
+          <button class="btn btn-primary" id="submitReviewBtn">提交复核</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="utils.js"></script>
+<script src="api.js"></script>
+<script src="state.js"></script>
+<script src="feedback.js"></script>
+<script src="pages/detail-page.js?v=review-ui-2"></script>
+</body>
+</html>

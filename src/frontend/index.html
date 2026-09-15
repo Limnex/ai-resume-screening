@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231d2b2e'/%3E%3Cpath d='M18 19h28v26H18z' fill='none' stroke='%2367d6c1' stroke-width='4'/%3E%3Cpath d='M24 27h16M24 35h12' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+  <title>AI 简历初筛系统 - 创建任务</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <h2>AI 简历初筛</h2>
+    <div class="portfolio-note"><strong>作品集演示</strong><span>默认离线运行，结论须由 HR 复核</span></div>
+    <a href="index.html" class="active">创建任务</a>
+    <a href="criteria.html">标准确认</a>
+    <a href="results.html">筛选结果</a>
+    <a href="detail.html">候选人详情</a>
+  </div>
+  <div class="main">
+    <h1 class="page-title">创建筛选任务</h1>
+
+    <div class="card">
+      <div class="card-title">上传简历数据</div>
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="fileInput" accept=".csv">
+        <p style="font-size:36px;color:var(--line);margin-bottom:8px">&#8682;</p>
+        <p>点击或拖拽 CSV 文件到此处</p>
+        <p style="font-size:12px;margin-top:4px">支持包含 resume_text、job_description 等字段的 CSV 文件</p>
+      </div>
+    </div>
+
+    <div class="card hidden" id="roleSelectCard">
+      <div class="card-title">选择目标岗位</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">数据集中包含多个岗位，请选择要筛选的岗位类型</p>
+      <div class="form-group" style="margin-bottom:0">
+        <select id="roleSelect" style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);font-size:14px">
+        </select>
+      </div>
+      <div id="roleStats" style="margin-top:12px;font-size:13px;color:var(--muted)"></div>
+    </div>
+
+    <div class="card hidden" id="previewCard">
+      <div class="card-title">数据预览</div>
+      <div id="fileInfo" style="margin-bottom:16px;color:var(--muted);font-size:13px"></div>
+      <div style="overflow-x:auto">
+        <table id="previewTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card hidden" id="jobInfoCard">
+      <div class="card-title">原始岗位信息</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="form-group">
+          <label>岗位名称</label>
+          <input type="text" id="jobRole" readonly>
+        </div>
+        <div class="form-group">
+          <label>本轮分析数量（1～20）</label>
+          <input type="number" id="candidateLimit" value="20" min="1" max="20">
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label>原始完整 JD</label>
+          <textarea id="jobDesc" rows="6" readonly></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden" id="actionBar" style="text-align:right;margin-top:16px">
+      <button class="btn btn-primary" id="createTaskBtn">创建任务并提取条件</button>
+    </div>
+  </div>
+</div>
+
+<script src="utils.js"></script>
+<script src="api.js"></script>
+<script src="state.js"></script>
+<script src="feedback.js"></script>
+<script src="pages/index-page.js"></script>
+</body>
+</html>

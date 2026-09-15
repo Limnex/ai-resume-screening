@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231d2b2e'/%3E%3Cpath d='M18 19h28v26H18z' fill='none' stroke='%2367d6c1' stroke-width='4'/%3E%3Cpath d='M24 27h16M24 35h12' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+  <title>AI 简历初筛系统 - 筛选结果</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <h2>AI 简历初筛</h2>
+    <div class="portfolio-note"><strong>作品集演示</strong><span>默认离线运行，结论须由 HR 复核</span></div>
+    <a href="index.html">创建任务</a>
+    <a href="criteria.html">标准确认</a>
+    <a href="results.html" class="active">筛选结果</a>
+    <a href="detail.html">候选人详情</a>
+  </div>
+  <div class="main">
+    <h1 class="page-title">筛选结果</h1>
+
+    <div class="status-bar">
+      <div class="status-item">
+        <div class="number" id="totalNum">0</div>
+        <div class="label">本轮结果人数</div>
+      </div>
+      <div class="status-item">
+        <div class="number" style="color:var(--success)" id="recommendNum">0</div>
+        <div class="label">推荐</div>
+      </div>
+      <div class="status-item">
+        <div class="number" style="color:var(--warning)" id="pendingNum">0</div>
+        <div class="label">待定</div>
+      </div>
+      <div class="status-item">
+        <div class="number" style="color:var(--danger)" id="rejectNum">0</div>
+        <div class="label">不推荐</div>
+      </div>
+    </div>
+
+    <div class="card" id="limitNotice" style="border-left:4px solid var(--primary)"></div>
+    <div class="card hidden" id="failureNotice" style="border-left:4px solid var(--danger);color:var(--danger)"></div>
+
+    <div class="card">
+      <div class="tabs">
+        <button class="tab active" data-tab="recommend">
+          推荐 <span class="badge" style="background:var(--success)" id="recommendBadge">0</span>
+        </button>
+        <button class="tab" data-tab="pending">
+          待定 <span class="badge" id="pendingBadge">0</span>
+        </button>
+        <button class="tab" data-tab="reject">
+          不推荐 <span class="badge" style="background:var(--danger)" id="rejectBadge">0</span>
+        </button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>候选人 ID</th>
+            <th>原始简历摘要</th>
+            <th>AI 建议</th>
+            <th>HR 最终结果</th>
+            <th>HR 复核理由</th>
+            <th>风险标记</th>
+            <th>匹配分</th>
+            <th>证据置信度</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </div>
+
+    <div style="text-align:right;margin-top:16px">
+      <button class="btn btn-outline" id="backToCriteriaBtn">返回修改标准</button>
+    </div>
+  </div>
+</div>
+
+<script src="utils.js"></script>
+<script src="api.js"></script>
+<script src="state.js"></script>
+<script src="feedback.js"></script>
+<script src="pages/results-page.js"></script>
+</body>
+</html>

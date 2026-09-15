@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231d2b2e'/%3E%3Cpath d='M18 19h28v26H18z' fill='none' stroke='%2367d6c1' stroke-width='4'/%3E%3Cpath d='M24 27h16M24 35h12' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+  <title>AI 简历初筛系统 - 标准确认</title>
+  <link rel="stylesheet" href="style.css?v=criteria-layout-2">
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <h2>AI 简历初筛</h2>
+    <div class="portfolio-note"><strong>作品集演示</strong><span>默认离线运行，结论须由 HR 复核</span></div>
+    <a href="index.html">创建任务</a>
+    <a href="criteria.html" class="active">标准确认</a>
+    <a href="results.html">筛选结果</a>
+    <a href="detail.html">候选人详情</a>
+  </div>
+  <div class="main">
+    <h1 class="page-title">确认筛选标准</h1>
+
+    <div class="card">
+      <div class="card-title">岗位信息</div>
+      <div id="jobSummary" style="color:var(--muted);font-size:14px"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div class="card-title" style="margin-bottom:0">AI 提取的筛选条件</div>
+        <button class="btn btn-outline btn-sm" id="addConditionBtn">+ 新增条件</button>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px">请逐项确认条件名称和具体要求。具体要求是实际比对依据，不能只写“Skills”或“Experience”。</p>
+      <div class="table-scroll">
+        <table class="criteria-table">
+          <colgroup>
+            <col class="criteria-col-index">
+            <col class="criteria-col-name">
+            <col class="criteria-col-requirement">
+            <col class="criteria-col-category">
+            <col class="criteria-col-type">
+            <col class="criteria-col-source">
+            <col class="criteria-col-action">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>条件名称</th>
+              <th>具体要求</th>
+              <th>类别</th>
+              <th>类型</th>
+              <th>来源</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="criteriaBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card hidden" id="analysisStatusCard">
+      <div class="card-title">分析引擎处理进度</div>
+      <div id="analysisStatusText" style="font-size:14px;color:var(--muted);margin-bottom:10px"></div>
+      <div id="analysisFailures" class="hidden" style="color:var(--danger);font-size:13px;margin-bottom:10px"></div>
+      <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden">
+        <div id="analysisProgressBar" style="width:0;height:100%;background:var(--primary);transition:width .25s"></div>
+      </div>
+    </div>
+
+    <div style="text-align:right;margin-top:16px">
+      <button class="btn btn-outline" id="backToHomeBtn">返回</button>
+      <button class="btn btn-primary" id="confirmBtn">确认并开始分析</button>
+    </div>
+  </div>
+</div>
+
+<script src="utils.js"></script>
+<script src="api.js"></script>
+<script src="state.js"></script>
+<script src="feedback.js"></script>
+<script src="pages/criteria-page.js?v=criteria-layout-2"></script>
+</body>
+</html>
