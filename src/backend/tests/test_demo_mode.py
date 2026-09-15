@@ -14,7 +14,7 @@ def test_demo_mode_runs_complete_screening_flow(tmp_path: Path) -> None:
         runtime_dir=tmp_path / "runtime",
         llm_api_key="",
         llm_base_url="",
-        llm_model="portfolio-demo",
+        llm_model="offline-demo",
         llm_timeout_seconds=5,
         llm_max_retries=0,
         llm_concurrency=3,
@@ -65,7 +65,7 @@ def test_demo_mode_runs_complete_screening_flow(tmp_path: Path) -> None:
 
         started = client.post(
             f"/api/v1/screening-jobs/{job_id}/analysis",
-            json={"criteria_version": version, "idempotency_key": "portfolio-demo-run"},
+            json={"criteria_version": version, "idempotency_key": "offline-demo-run"},
         )
         assert started.status_code == 202, started.text
 

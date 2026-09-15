@@ -97,7 +97,7 @@ body {
   color: var(--ink);
 }
 
-.portfolio-note {
+.demo-note {
   margin: 0 10px 22px;
   padding: 10px 11px;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -109,12 +109,12 @@ body {
   line-height: 1.55;
 }
 
-.portfolio-note strong,
-.portfolio-note span {
+.demo-note strong,
+.demo-note span {
   display: block;
 }
 
-.portfolio-note strong {
+.demo-note strong {
   color: #ffffff;
   font-size: 12px;
   letter-spacing: 0.08em;

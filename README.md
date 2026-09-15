@@ -2,7 +2,7 @@
 
 面向 AI 应用岗位的项目：不是让模型替 HR 做决定，而是把“岗位要求—模型建议—原文证据—人工复核”串成一条可追溯的业务链路。
 
-![证据账本页面](assets/portfolio/ai-evidence-ledger-final.png)
+![证据账本页面](assets/screenshots/ai-evidence-ledger-final.png)
 
 > 默认启用离线演示模式，不需要 API Key、不会产生模型费用。演示结果由固定规则生成，只用于验证产品流程，不能用于真实招聘判断。
 
