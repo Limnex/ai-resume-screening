@@ -63,7 +63,7 @@ FastAPI 接口 → 应用用例 → 领域规则 → JSON/JSONL 文件存储
 
 技术栈：Python、FastAPI、Pydantic、原生 JavaScript、JSON/JSONL、pytest、Playwright。
 
-详细说明见 [系统设计](docs/architecture.md)。
+详细说明见 [系统设计](docs/architecture.md) 与 [后端运行说明](src/backend/README.md)。
 
 ## 自动化验证
 
